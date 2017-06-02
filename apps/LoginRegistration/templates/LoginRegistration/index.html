@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Carlos - Login & Registration Index Page</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'LoginRegistration/CSS/LoginRegistraitonCSS.css' %}" media="screen" title="no_title" charset="utf-8">
+        <meta name="description" content="The Python Belt Exam. Rumored to be one of the more difficult tests given at Coding Dojo. Success rate is 10%.">
+        <meta name="keywords" content="HTML, CSS, Python, Django, SQL">
+        <meta name="author" content="Carlos Gutz">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <!--Commonly named as "wrapper", "master" will undertake the role of being the majority of the page.-->
+        <div id="master">
+            <!--/register form is for new user registration. This contains the most validations as
+            each new user needs to follow our guidelines in creating new users.-->
+            <fieldset id="RegisterFieldset">
+                <legend>Registration</legend>
+                <form action="/register" method="POST">
+                    {% csrf_token %}
+                    <ul>
+                        <label for="Name">Name:</label>
+                        <label for="Email">Email:</label>
+                        <label for="Email">Password:</label>
+                        <p>*Password must be at least 8 characters long.</p>
+                        <label for="PasswordConfirm">Confirm Password:</label>
+                        <label for="birthday">Date Of Birth:</label>
+                    </ul>
+                    <ul>
+                        <input type="text" name="Name" placeholder="exmaple: Carlos">
+                        <input type="email" name="Email" placeholder="example: Villian@villian.com">
+                        <input type="password" name="Password" placeholder="8-30 characters long"><br>
+                        <input type="password" name="PasswordConfirm">
+                        <input type="date" name="birthday" max="2017-06-02">
+                    </ul>
+                    <ul>
+                        <p>*Birthday must be before current time.</p>
+                        <button type="submit" name="Register" value="Register">Register</button>
+                    </ul>
+
+                </form>
+            </fieldset>
+
+            <fieldset id="LoginFieldset">
+                <legend>Login</legend>
+                <form action="/login" method="POST">
+                    {% csrf_token %}
+                    <ul>
+                        <label for="Email">Email:</label>
+                        <label for="Password">Password:</label>
+                    </ul>
+                    <ul>
+                        <input type="email" name="Email" placeholder="example: Villian@villian.com">
+                        <input type="password" name="PasswordLogin" placeholder="8-30 characters long">
+                    </ul>
+                    <button type="submit" name="Login" value="Login">Login</button>
+                </form>
+            </fieldset>
+        </div>
+        <div id="secretDiv">
+            {% for errors in messages %}
+                <h5 style="color:red">{{ errors }}</h5>
+            {% endfor %}
+        </div>
+    </body>
+</html>

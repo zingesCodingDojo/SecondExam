@@ -1,0 +1,10 @@
+#NewAppointmentFIELDSET{
+    width: 40%;
+}
+
+        ul{
+            display: inline-block;
+        }
+        input, label{
+            display: block;
+        }

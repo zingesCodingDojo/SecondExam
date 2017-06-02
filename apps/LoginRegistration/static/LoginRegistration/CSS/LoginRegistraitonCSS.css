@@ -1,0 +1,33 @@
+*{
+    margin: 0px auto;
+}
+    /*Master Div is also known as "Wrapper" it will wrap all content.*/
+    #master{
+        width: 100%;
+    }
+    /*Form fields.*/
+    #RegisterFieldset, #LoginFieldset{
+        width: 40%;
+        display: inline-block;
+        text-align: left;
+        vertical-align: top;
+    }
+        ul{
+            display:inline-block;
+        }
+        input, label{
+            display: block;
+        }
+        #RegistrationFieldset, p{
+            font-size: 0.75em;
+        }
+
+    #secretDiv{
+        width: 30%;
+        text-align:center;
+        background: linear-gradient(skyblue, white);
+        margin: 20px;
+        border-radius: 5px;
+        box-shadow: 4px 2px 4px skyblue;
+        font-size: 1.5rem;
+    }

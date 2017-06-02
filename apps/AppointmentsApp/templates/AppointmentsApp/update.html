@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Python Belt Test - Logged In Page</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'AppointmentsApp/CSS/AppointmentsAppCSS.css' %}" media="screen" title="no_title" charset="utf-8">
+        <meta name="description" content="Update appointment">
+        <meta name="keywords" content="HTML, CSS, Python, Django, SQL">
+        <meta name="author" content="Carlos Gutz">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <form action="{% url 'appointments:logout' %}" method="POST">
+            {% csrf_token %}
+            <button style="float:right" id="Logout" type="submit" name="Logout" value="Logout">Logout</button>
+        </form>
+        <form action="{% url 'appointments:index' %}" method="POST">
+            {% csrf_token %}
+            <button style="float:left" id="appointments_edit" type="submit" name="MainPage" value="MainPage">Return to Main Page</button>
+        </form>
+        <br>
+        <div id="master">
+
+            <fieldset>
+                <legend>Edit your appointment</legend>
+                <form action="{% url 'appointments:update' id=current_appointment.id%}" method="POST">
+                    {% csrf_token %}
+                    <ul>
+                        <label for="task">Task:</label>
+                        <label for="status">Status:</label>
+                        <label for="date">Date:</label>
+                        <label for="time">Time:</label>
+                    </ul>
+                    <ul>
+                        <input type="text" name="appointment_task" value="{{ current_appointment.task }}">
+                        <select>
+                            <option name="appointment_status" value="{{ current_appointment.status }}">Pending</option>
+                            <option name="appointment_status" value="{{ current_appointment.status }}">Missed</option>
+                            <option name="appointment_status" value="{{ current_appointment.status }}">Done</option>
+                        </select>
+                        <input type="date" name="appointment_date" value="{{ current_appointment.date }}">
+                        <input type="time" name="appointment_time" value="{{ current_appointment.time }}">
+                    </ul>
+                    <button type="submit" name="appointment_update">Update</button>
+                </form>
+            </fieldset>
+            {% for errors in messages %}
+                <p>{{ errors }}</p>
+            {% endfor %}
+        </div>
+    </body>
+</html>

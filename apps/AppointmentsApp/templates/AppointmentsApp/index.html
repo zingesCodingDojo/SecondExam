@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Python Belt Test - Logged In Page</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'AppointmentsApp/CSS/AppointmentsAppCSS.css' %}" media="screen" title="no_title" charset="utf-8">
+        <meta name="description" content="Logged in">
+        <meta name="keywords" content="HTML, CSS, Python, Django, SQL">
+        <meta name="author" content="Carlos Gutz">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div id="master">
+            <form action="{% url 'appointments:logout' %}" method="POST">
+                {% csrf_token %}
+                <button style="float:right" id="Logout" type="submit" name="Logout" value="Logout">Logout</button>
+            </form>
+            <h1>Hello, {{ request.session.logged_user }}</h1>
+
+            <h2>Here are your appointments for today, DATETIME.</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Task</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for items in appointments %}
+
+                    <tr>
+                        <th>{{ items.id }}</th>
+                        <th>{{ items.task }}</th>
+                        <th>{{ items.date }}</th>
+                        <th>{{ items.status }}</th>
+                        <th><a href="{% url 'appointments:edit' id=items.id%}">Edit</a> | <a href="{% url 'appointments:delete' id=items.id%}">Delete</a></th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <h2>Your Other Appointments:</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for items in future %}
+
+                    <tr>
+                        <th>{{ items.id }}</th>
+                        <th>{{ items.task }}</th>
+                        <th>{{ items.date }}</th>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+            <h2>Add Appointment</h2>
+            <fieldset id="NewAppointmentFIELDSET">
+                <legend>Add Appointment</legend>
+                <form action="{% url 'appointments:add_appointment' %}" method="POST">
+                    {% csrf_token %}
+                    <ul>
+                        <label for="date">Date:</label>
+                        <label for="time">Time:</label>
+                        <label for="task">Task:</label>
+                    </ul>
+                    <ul>
+                        <input type="date" name="appointment_date" min="2017-06-02">
+                        <input type="time" name="appointment_time">
+                        <input type="text" name="appointment_task">
+                    </ul>
+                    <button type="input" name="add_appointment">Add</button>
+                </form>
+            </fieldset>
+            {% for errors in messages %}
+                <p>{{ errors }}</p>
+            {% endfor %}
+        </div>
+    </body>
+</html>
